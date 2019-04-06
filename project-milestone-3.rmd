@@ -1,0 +1,45 @@
+---
+title: "Project Milestone"
+author: "Chris Onesti"
+date: "April 5, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(readr)
+library(readxl)
+library(dplyr)
+library(fs)
+
+```
+
+```{r downloads, cache = TRUE, echo = FALSE}
+
+
+enrollment_eighteen <- read_excel("fall_2018_enrollment.xlsx", skip = 3) %>% filter(!is.na(`Course Name`)) %>% filter(UGrad > 5) %>% select(id =`Course ID`, title = `Course Title`, name = `Course Name`, department = `Course Department`, enrolled = `UGrad`)
+
+enrollment_seventeen <- read_excel("fall_2018_enrollment.xlsx", skip = 3) %>% filter(!is.na(`Course Name`)) %>% filter(UGrad > 5) %>% select(id =`Course ID`, title = `Course Title`, name = `Course Name`, department = `Course Department`, enrolled = `UGrad`)
+
+enrollment_sixteen <- read_excel("fall_2018_enrollment.xlsx", skip = 3) %>% filter(!is.na(`Course Name`)) %>% filter(UGrad > 5) %>% select(id =`Course ID`, title = `Course Title`, name = `Course Name`, department = `Course Department`, enrolled = `UGrad`)
+
+
+
+
+
+
+
+enrollment_nineteen <- read_excel("2019_enrollment.xlsx", skip = 3) %>% filter(!is.na(`Course Name`)) %>% filter(UGrad > 5) %>% select(id =`Course ID`, title = `Course Title`, name = `Course Name`, department = `Course Department`, enrolled = `UGrad`)
+
+file_delete("2019_enrollment.xlsx")
+
+file_delete("2018_enrollment.xlsx")
+
+```
+
+```{r}
+enrollment %>% arrange(desc(enrolled)) %>% filter(department %in% c("Economics", "Government", "Statistics", "Computer Science", "Applied Mathematics"))
+```
+
