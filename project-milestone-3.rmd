@@ -19,27 +19,34 @@ library(fs)
 ```{r downloads, cache = TRUE, echo = FALSE}
 
 
-enrollment_eighteen <- read_excel("fall_2018_enrollment.xlsx", skip = 3) %>% filter(!is.na(`Course Name`)) %>% filter(UGrad > 5) %>% select(id =`Course ID`, title = `Course Title`, name = `Course Name`, department = `Course Department`, enrolled = `UGrad`)
+enrollment_eighteen <- read_excel("fall_2018_enrollment.xlsx", skip = 2) %>% 
+  filter(!is.na(`Course Name`)) %>% 
+  filter(UGrad > 5) %>% 
+  select(id =`Course ID`, title = `Course Title`, name = `Course Name`, department = `Course Department`, enrolled = `UGrad`)
 
-enrollment_seventeen <- read_excel("fall_2018_enrollment.xlsx", skip = 3) %>% filter(!is.na(`Course Name`)) %>% filter(UGrad > 5) %>% select(id =`Course ID`, title = `Course Title`, name = `Course Name`, department = `Course Department`, enrolled = `UGrad`)
+enrollment_seventeen <- read_excel("fall_2017_enrollment.xlsx", skip = 3) %>% filter(!is.na(`Course Name`)) %>% filter(UGrad > 5) %>% select(id =`Course ID`, title = `Course Title`, name = `Course Name`, department = `Course Department`, enrolled = `UGrad`)
 
-enrollment_sixteen <- read_excel("fall_2018_enrollment.xlsx", skip = 3) %>% filter(!is.na(`Course Name`)) %>% filter(UGrad > 5) %>% select(id =`Course ID`, title = `Course Title`, name = `Course Name`, department = `Course Department`, enrolled = `UGrad`)
+enrollment_sixteen <- read_excel("fall_2016_enrollment.xlsx", skip = 0) %>% filter(!is.na(`COURSE ID`)) %>% filter(HCOL > 5) %>% select(id =`COURSE ID`, title = `COURSE`, department = `DEPARTMENT`, enrolled = `HCOL`)
 
-
-
-
-
-
-
-enrollment_nineteen <- read_excel("2019_enrollment.xlsx", skip = 3) %>% filter(!is.na(`Course Name`)) %>% filter(UGrad > 5) %>% select(id =`Course ID`, title = `Course Title`, name = `Course Name`, department = `Course Department`, enrolled = `UGrad`)
-
-file_delete("2019_enrollment.xlsx")
-
-file_delete("2018_enrollment.xlsx")
 
 ```
 
-```{r}
-enrollment %>% arrange(desc(enrolled)) %>% filter(department %in% c("Economics", "Government", "Statistics", "Computer Science", "Applied Mathematics"))
+##Description
+
+This data analysis will focus on the social sciences and STEM courses.  Currently there is a boom in STEM course enrollment and because students can only enroll in a fixed amount of courses, this migration needs to come from somewhere.  I hypothesize that the courses that are being passed aside mainly lie in the social sciences.  The purpose of this data analysis will be to prove or disprove this hypothesis.  It will examine data from the past three years and attempt to plot trends on a departmental or a course-by-course level.  In other words, I will go deeper and try to describe this trend as best as possible using the trends in the data.  The data is public and taken from the Harvard website.  The plot below demonstrates a sample of the data.
+
+```{r, echo = FALSE}
+
+
+enrollment_eighteen %>% 
+  filter(department %in% c("Economics", "Computer Science", "Government", "Statistics", "Applied Mathematics")) %>%  
+  ggplot(aes(x = department, y = enrolled)) + 
+    geom_point() + 
+    labs(title = "Enrollment by Department in Main STEM and Social Sciences Departmenst (2018)", subtitle = "Computer Science and Economics are the two leading choices") + 
+    xlab("Department") + 
+    ylab("Enrollment Density") + 
+    coord_flip()
+
+
 ```
 
