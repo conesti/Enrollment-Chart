@@ -40,12 +40,13 @@ This data analysis will focus on the social sciences and STEM courses.  Currentl
 
 enrollment_eighteen %>% 
   filter(department %in% c("Economics", "Computer Science", "Government", "Statistics", "Applied Mathematics")) %>%  
-  ggplot(aes(x = department, y = enrolled)) + 
+  ggplot(aes(x = department, y = enrolled, color = department)) + 
     geom_point() + 
     labs(title = "Enrollment by Department in Main STEM and Social Sciences Departmenst (2018)", subtitle = "Computer Science and Economics are the two leading choices") + 
     xlab("Department") + 
     ylab("Enrollment Density") + 
-    coord_flip()
+    coord_flip() + 
+    theme(legend.position = "none")
 
 
 ```
